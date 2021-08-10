@@ -1,7 +1,16 @@
 package br.com.alura.forum.modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Curso {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//GenerationType.IDENTITY => É um AUTO INCREMENT. Se o banco usar, pode ser também SEQUENCE
 	private Long id;
 	private String nome;
 	private String categoria;

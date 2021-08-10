@@ -1,5 +1,6 @@
 package br.com.alura.forum.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class TopicosController {
 	public List<Topico> lista() {
 		Topico topico = new Topico("Dúvida", "Dúvida com SpringBoot", new Curso("Spring", "Programação"));
 		
+		return Arrays.asList(topico, topico, topico, topico, topico);
 	}
 
 }

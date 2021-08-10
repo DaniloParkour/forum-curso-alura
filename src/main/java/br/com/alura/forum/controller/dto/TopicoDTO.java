@@ -19,6 +19,23 @@ public class TopicoDTO {
         this.mensagem = topico.getMensagem();
         this.dataCriacao = topico.getDataCriacao();
     }
+    
+    //Gets para permitir a serialização do objeto
+    public Long getId() {
+		return id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	public LocalDateTime getDataCriacao() {
+		return dataCriacao;
+	}
 
 	public static List<TopicoDTO> converter(List<Topico> topicos) {
 		//Usando a sintaxe da API de STREAM do JAVA 8 não é preciso escrever o for com o bloco de operações

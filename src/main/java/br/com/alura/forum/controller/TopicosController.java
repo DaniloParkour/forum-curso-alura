@@ -14,7 +14,7 @@ import br.com.alura.forum.modelo.Topico;
 //@Controller
 @RestController //Com essa anotação não é mais necessário colocar o @ResponseBody nos endpoints
 public class TopicosController {
-	
+
 	@RequestMapping("/topics")
 	// @ResponseBody //Informar que o retorno não é uma página da aplicação e sim uma resposta do endpoint
 	public List<Topico> lista() {

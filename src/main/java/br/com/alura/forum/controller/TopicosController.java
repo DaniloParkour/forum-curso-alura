@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.forum.controller.dto.TopicoDTO;
 import br.com.alura.forum.modelo.Curso;
 import br.com.alura.forum.modelo.Topico;
 
@@ -17,10 +18,10 @@ public class TopicosController {
 
 	@RequestMapping("/topics")
 	// @ResponseBody //Informar que o retorno não é uma página da aplicação e sim uma resposta do endpoint
-	public List<Topico> lista() {
+	public List<TopicoDTO> lista() {
 		Topico topico = new Topico("Dúvida", "Dúvida com SpringBoot", new Curso("Spring", "Programação"));
 		
-		return Arrays.asList(topico, topico, topico, topico, topico);
+		return TopicoDTO.converter(Arrays.asList(topico, topico, topico));
 	}
 
 }

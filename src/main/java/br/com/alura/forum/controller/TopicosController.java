@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +53,7 @@ public class TopicosController {
 	// @ResponseBody //Informar que o retorno não é uma página da aplicação e sim uma resposta do endpoint
 	// @RequestMapping(value = "/topicos", method = RequestMethod.Get) //Pode ser substituido por "@GetMapping"
 	@GetMapping
+	@Cacheable(value = "listaDeTopicos") //listaDeTopicos serve como um ID desses dados no cache
 	public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
 								 // Pageable paginacao //Precisa do @EnableSpringDataWebSupport na MAIN
 								 @PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao

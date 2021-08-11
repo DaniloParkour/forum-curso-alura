@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,9 +51,14 @@ public class TopicosController {
 	// @RequestMapping(value = "/topicos", method = RequestMethod.Get) //Pode ser substituido por "@GetMapping"
 	@GetMapping
 	public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
-								 @RequestParam int pagina, @RequestParam int quandidade) {
+								 @RequestParam int pagina, @RequestParam int quandidade,
+								 @RequestParam(required = false) String ordenacao) {
 		
-		Pageable paginacao = PageRequest.of(pagina, quandidade);
+		Pageable paginacao;
+		if(ordenacao != null)
+			paginacao = PageRequest.of(pagina, quandidade, Direction.DESC, ordenacao);
+		else
+			paginacao = PageRequest.of(pagina, quandidade);
 		
 		Page<Topico> topicos;
 		

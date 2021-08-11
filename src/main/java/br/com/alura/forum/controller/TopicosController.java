@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,14 +53,18 @@ public class TopicosController {
 	// @RequestMapping(value = "/topicos", method = RequestMethod.Get) //Pode ser substituido por "@GetMapping"
 	@GetMapping
 	public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
-								 @RequestParam int pagina, @RequestParam int quandidade,
-								 @RequestParam(required = false) String ordenacao) {
+								 // Pageable paginacao //Precisa do @EnableSpringDataWebSupport na MAIN
+								 @PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao
+							) {
+
+		//Exemplo de consulta agora que pega automaticamente os dados da paginação
+		//http://localhost:8080/topicos?page=0&size=2&sort=id,desc&sort=dataCriacao,asc
 		
-		Pageable paginacao;
+		/* Pageable paginacao;
 		if(ordenacao != null)
 			paginacao = PageRequest.of(pagina, quandidade, Direction.DESC, ordenacao);
 		else
-			paginacao = PageRequest.of(pagina, quandidade);
+			paginacao = PageRequest.of(pagina, quandidade); */
 		
 		Page<Topico> topicos;
 		

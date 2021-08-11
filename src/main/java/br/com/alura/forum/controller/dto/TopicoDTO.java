@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import br.com.alura.forum.modelo.Topico;
 
 public class TopicoDTO {
@@ -37,9 +39,12 @@ public class TopicoDTO {
 		return dataCriacao;
 	}
 
-	public static List<TopicoDTO> converter(List<Topico> topicos) {
+	public static Page<TopicoDTO> converter(Page<Topico> topicos) {
 		//Usando a sintaxe da API de STREAM do JAVA 8 não é preciso escrever o for com o bloco de operações
-		return topicos.stream().map(TopicoDTO::new).collect(Collectors.toList());
+		// return topicos.stream().map(TopicoDTO::new).collect(Collectors.toList());
+		
+		//Percorre a Page topicos criando instâncias de TopicoDTO e adicionado a page
+		return topicos.map(TopicoDTO::new);
 	}
 
 }

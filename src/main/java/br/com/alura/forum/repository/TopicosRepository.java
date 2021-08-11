@@ -2,6 +2,8 @@ package br.com.alura.forum.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +17,7 @@ public interface TopicosRepository extends JpaRepository<Topico, Long> {
 
 	/* O Spring já cria automaticamente pelo nome do método o "findBy" na tabela
 	 * "Curso" na coluna "Nome" */
-	List<Topico> findByCursoNome(String nomeCurso);
+	Page<Topico> findByCursoNome(String nomeCurso, Pageable paginacao);
 	
 	/*OBS: Para diferenciar quando há ambiguidade. Por exemplo, se houvesse também a
 	 * coluna cursoNome. Se houver ambuiguidade pode usar o findByCurso_Nome que nesse

@@ -36,13 +36,16 @@ public class Topico {
 	
 	@OneToMany(mappedBy = "topico")
 	private List<Resposta> respostas = new ArrayList<>();
+	
+	public Topico() {
+		//Construtor padrão para o JPA usar
+	}
 
-	//Remover esse construtor e deixar apenas o default que será usado pelo JPA
-	/* public Topico(String titulo, String mensagem, Curso curso) {
-		this.titulo = titulo;
-		this.mensagem = mensagem;
-		this.curso = curso;
-	} */
+	public Topico(String titulo, String mensagem, Curso curso) {
+        this.titulo = titulo;
+        this.mensagem = mensagem;
+        this.curso = curso;
+	}
 
 	@Override
 	public int hashCode() {

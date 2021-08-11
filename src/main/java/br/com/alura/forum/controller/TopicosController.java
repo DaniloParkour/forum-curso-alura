@@ -4,10 +4,13 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.alura.forum.controller.dto.DetalhesDoTopicoDTO;
 import br.com.alura.forum.controller.dto.TopicoDTO;
 import br.com.alura.forum.controller.form.TopicoForm;
 import br.com.alura.forum.modelo.Curso;
@@ -47,7 +51,7 @@ public class TopicosController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<TopicoDTO> carastrar(@RequestBody TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<TopicoDTO> carastrar(@RequestBody @Valid TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
 		
 		//Caso queria pegar um campo para alguma validação mas específica
 		/* if(topicoForm.getTitulo().startsWith("Exemplo")) {
@@ -60,5 +64,11 @@ public class TopicosController {
         URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
         return ResponseEntity.created(uri).body(new TopicoDTO(topico));
 	}
+	
+	@GetMapping("/{id}")
+    public DetalhesDoTopicoDTO detalhar(@PathVariable Long id) { //Se fosse a outra variavel (?id=5), sem o "/id", não precisaria colocar uma anotação 
+    Topico topico = topicoRepository.getOne(id);
+    return new DetalhesDoTopicoDTO(topico);
+    }
 
 }

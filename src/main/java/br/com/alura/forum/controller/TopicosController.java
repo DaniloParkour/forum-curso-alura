@@ -48,6 +48,12 @@ public class TopicosController {
 	
 	@PostMapping
 	public ResponseEntity<TopicoDTO> carastrar(@RequestBody TopicoForm topicoForm, UriComponentsBuilder uriBuilder) {
+		
+		//Caso queria pegar um campo para alguma validação mas específica
+		/* if(topicoForm.getTitulo().startsWith("Exemplo")) {
+			// ...
+		} */
+		
 		Topico topico = topicoForm.converter(cursoRepository);
         topicoRepository.save(topico);
         

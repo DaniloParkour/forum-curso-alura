@@ -33,4 +33,14 @@ public class TokenService {
 				;
 	}
 
+	public boolean isTokenValido(String token) {
+		try {
+			//parseClaimsJws retorna os dados do token ou caso não seja válido lança uma exceção
+			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

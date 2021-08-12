@@ -5,9 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 @EnableSpringDataWebSupport //Anotação para o spring já pegar a paginação da URL
 @EnableCaching //spring-boot-starter-cache definido no XML
+@EnableSwagger2
 public class ForumApplication {
 
 	public static void main(String[] args) {

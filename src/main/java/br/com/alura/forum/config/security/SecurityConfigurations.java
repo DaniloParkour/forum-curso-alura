@@ -52,6 +52,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
 		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+		.antMatchers(HttpMethod.GET, "/actuator").permitAll() //Na PRODUCAO liberar apenas para os perfis que podem, pra testes PERMITALL
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.anyRequest().authenticated()
 		// Não vamos mais usar sessões, agora será com token JWT

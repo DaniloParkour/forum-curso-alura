@@ -54,6 +54,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
 		.antMatchers(HttpMethod.GET, "/actuator").permitAll() //Na PRODUCAO liberar apenas para os perfis que podem, pra testes PERMITALL
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/topicos/*").hasRole("MODERADOR") //Deleta apenas se tiver perfil de ROLE_MODERADOR
 		.anyRequest().authenticated()
 		// Não vamos mais usar sessões, agora será com token JWT
 		// .and().formLogin(); //Por padrão o SPRING já entrega uma tela de login

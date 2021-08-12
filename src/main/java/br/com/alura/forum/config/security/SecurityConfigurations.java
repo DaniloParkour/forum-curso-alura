@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.com.alura.forum.repository.UsuarioRepository;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
@@ -25,6 +27,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private TokenService tokenService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	//Sobrescrever o método que sabe criar o AuthenticationManager para que o SPRING aprenda como injetar a dependência com @Autowried
 	@Override
@@ -54,7 +59,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.and().csrf().disable() //O JWT não usa então não precisamos habilitar essa parte que previne ataques CSRF
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		//Como não vamos usar o login do SPRING, vamos precisar agora definir o controller
-		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	//Configuracoes de recursos estaticos(js, css, imagens, etc.)

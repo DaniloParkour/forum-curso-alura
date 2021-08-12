@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
@@ -33,10 +34,14 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
 		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.anyRequest().authenticated()
-		.and().formLogin(); //Por padrão o SPRING já entrega uma tela de login
+		// Não vamos mais usar sessões, agora será com token JWT
+		// .and().formLogin(); //Por padrão o SPRING já entrega uma tela de login
+		.and().csrf().disable() //O JWT não usa então não precisamos habilitar essa parte que previne ataques CSRF
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//Como não vamos usar o login do SPRING, vamos precisar agora definir o controller
 	}
-	
 	
 	//Configuracoes de recursos estaticos(js, css, imagens, etc.)
 	@Override

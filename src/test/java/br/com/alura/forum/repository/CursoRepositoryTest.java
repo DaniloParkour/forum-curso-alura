@@ -6,13 +6,17 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.alura.forum.modelo.Curso;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest //Para classes que testarm REPOSITORIES
+// @AutoConfigureTestDatabase(replace = AutoConfigureTesteDatabase.Replace.NONE) => Caso queria usar um banco nos testes que não seja o H2. Dessa forma ele não substitui as configurações do application.properties para usar o H2
+// @ActiveProfiles("test") => Ao executar essa classe, muda o ambiente de desenvolvimento para "test"
 public class CursoRepositoryTest {
 	
 	@Autowired
